@@ -1,0 +1,34 @@
+# Python cache files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+venv/
+env/
+.env/
+
+# IDE-specific files (optional, but often helpful)
+.vscode/
+.idea/
+
+# Operating system files
+.DS_Store
+Thumbs.db
+
+# Node modules (for frontend)
+node_modules/
+
+# Build files (for frontend)
+/build
+/dist
+
+# Logs
+*.log
+
+# Other common files to ignore
+*.swp
+*.swo
+*.swn
+*.bak
+*.tmp

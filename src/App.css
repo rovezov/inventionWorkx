@@ -29,7 +29,7 @@ html, body {
 .login-container label {
   margin-bottom: 5px;
   /* margin-top: 15px; */
-  margin-left: 20px;
+  /* margin-left: 20px; */
   /* margin-right: 20px; */
 }
 
@@ -68,6 +68,12 @@ button:hover {
 .create-user-button:hover {
   background-color: transparent;
   color: #0056b3;                   /* Darker color on hover */
+}
+
+.error-message {
+  color: red;
+  text-align: center;
+  margin-top: 10px;
 }
 
 .App {

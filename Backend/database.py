@@ -35,12 +35,11 @@ def database_add_project(userid, name, id, description, hardwareSets):
         filter = {"userid": userid}
         userProjectList = userCollection.find_one({"userid": userid}, {"projects": 1, "_id": 0})
         if userProjectList is None:
-            print("not found")
             client.close()
             return PROJECT_ADD_FAILURE
         else:
             userProjectList = userProjectList.get("projects")
-        projectToAdd = collection.find_one({"id": id})
+        projectToAdd = collection.find_one({"ID": id})
         if projectToAdd is None:
             set = {
                     "Name": name,
@@ -56,7 +55,6 @@ def database_add_project(userid, name, id, description, hardwareSets):
                 client.close()
                 return PROJECT_ADD_SUCCESS
             else:
-                print("not updated")
                 client.close()
                 return PROJECT_ADD_FAILURE
         else:
@@ -66,6 +64,38 @@ def database_add_project(userid, name, id, description, hardwareSets):
         client.close()
         print(e)
         return DB_ERROR
+
+# Function returns the list of projects the user has
+# Input userid
+# Output if successful list of projects
+# if error occurs then returns None
+def database_get_user_projects(userid):
+    try:
+        projectList = []
+        client = MongoClient(uri)
+        db = client["Projects"]
+        collection = db["Universe"]
+        userDB = client["Users"]
+        userCollection = userDB["Universe"]
+        userProjectList = userCollection.find_one({"userid": userid}, {"projects": 1, "_id": 0})
+        if userProjectList is None:
+            client.close()
+            return None
+        else:
+            userProjectList = userProjectList.get("projects")
+        
+        for projectID in userProjectList:
+            project = collection.find_one({"ID": projectID}, {"_id": 0})
+            if project is None:
+                client.close()
+                return None
+            else:
+                projectList.append(project)
+        return projectList
+    except Exception as e:
+        client.close()
+        print(e)
+        return None
 
 # This function adds a new user to the database
 # Input: userid (username), password

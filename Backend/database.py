@@ -18,10 +18,13 @@ PROJECT_ADD_FAILURE = 0
 
 
 # This function adds a project, call only after loging in or signing in
+# This function adds the projectID to the user's projects list
+# Then it creates the project with the given values
+# This only happens if the User exists and the the project does not already exist
 # Input: userID (username), name (string), id (project id), description (string), hardwareSets (list of HardSet objects)
-# Output  if successful return SIGN_UP_SUCCESSFUL
-# if error then SIGN_UP_ERROR
-# if user already exists SIGN_UP_USER_EXISTS
+# Output  if successful return PROJECT_ADD_SUCCESS
+# if error then DB_ERROR
+# if user already exists PROJECT_ADD_FAILURE
 def database_add_project(userid, name, id, description, hardwareSets):
     try:
         client = MongoClient(uri)

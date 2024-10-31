@@ -127,4 +127,3 @@ def database_login(userid, password):
         print(e)
         return DB_ERROR
 
-print(database_add_project("rov", "Cool project", "1", "This is a cool project", []))

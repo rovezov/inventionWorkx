@@ -65,6 +65,46 @@ def database_add_project(userid, name, id, description, hardwareSets):
         print(e)
         return DB_ERROR
 
+# Function joins a user to a project, ie updates their list to include the id
+# Input: userid (username), projectid (projectid)
+# Output: Same stuff
+def database_join_project(userid, projectid):
+    try:
+        client = MongoClient(uri)
+        db = client["Projects"]
+        collection = db["Universe"]
+        userDB = client["Users"]
+        userCollection = userDB["Universe"]
+        filter = {"userid": userid}
+        userProjectList = userCollection.find_one({"userid": userid}, {"projects": 1, "_id": 0})
+        if userProjectList is None:
+            client.close()
+            return PROJECT_ADD_FAILURE
+        else:
+            userProjectList = userProjectList.get("projects")
+        projectToAdd = collection.find_one({"ID": projectid})
+        if projectToAdd is not None:
+            if projectid not in userProjectList:
+                userProjectList.append(projectid)
+                update_statement = {"$set": {"projects": userProjectList}}
+                result = userCollection.update_one(filter, update_statement)
+                if result.modified_count > 0:
+                    client.close()
+                    return PROJECT_ADD_SUCCESS
+                else:
+                    client.close()
+                    return PROJECT_ADD_FAILURE
+            else:
+                client.close()
+                return PROJECT_ADD_FAILURE
+        else:
+            client.close()
+            return PROJECT_ADD_FAILURE
+    except Exception as e:
+        client.close()
+        print(e)
+        return DB_ERROR
+
 # Function returns the list of projects the user has
 # Input userid
 # Output if successful list of projects

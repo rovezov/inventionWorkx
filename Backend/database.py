@@ -215,7 +215,7 @@ def database_login(userid, password):
         print(e)
         return DB_ERROR
 
-
+# Only call if user is signed in
 def database_check_out(hardwareName, userID, qty):
     client = MongoClient(uri)
     db = client["HardwareSet"]
@@ -227,6 +227,7 @@ def database_check_out(hardwareName, userID, qty):
         hardwareObj.check_out(qty, userID)
         collection.replace_one(filter, hardwareObj.to_dict())
 
+# Only call if user is signed in
 def database_check_in(hardwareName, userID, qty):
     client = MongoClient(uri)
     db = client["HardwareSet"]

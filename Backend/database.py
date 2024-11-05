@@ -247,4 +247,3 @@ def database_get_hardwareSets():
     for doc in documents:
         hardwareList.append(doc)
     return hardwareList
-

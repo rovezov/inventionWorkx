@@ -1,13 +1,14 @@
 
 
-class hardwareSet:
+class HardwareSet:
 
-    def __init__(self):
-        self.__capacity = 0
-        self.__availability = 0
-        self.__checked_out = {}
-        self.__hardware_name = ""
-    
+
+    def __init__(self, name, capacity, availability, checked):
+        self.__capacity = capacity
+        self.__availability = availability
+        self.__checked_out = checked
+        self.__hardware_name = name
+
     def initialize_capacity(self,qty):
         self.__capacity = qty
         self.__availability = qty
@@ -39,7 +40,6 @@ class hardwareSet:
     def check_in(self, qty, userName):
         self.handle_userName(userName)
         checkoutQTY = self.__checked_out[userName]
-        print(checkoutQTY)
         if qty > checkoutQTY:
             return -1
         else:
@@ -50,3 +50,15 @@ class hardwareSet:
     def handle_userName(self, userName):
         if userName not in self.__checked_out:
             self.__checked_out[userName] = 0
+    
+    def to_dict(self):
+        return {
+            "hardware_name": self.__hardware_name,
+            "capacity": self.__capacity,
+            "availability": self.__availability,
+            "checked_out": self.__checked_out
+        }
+    
+    @classmethod
+    def from_dict(cls, data):
+        return cls(name=data["hardware_name"], capacity=data["capacity"], availability=data["availability"], checked=data["checked_out"])

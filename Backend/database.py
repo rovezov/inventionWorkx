@@ -1,6 +1,6 @@
 from pymongo.mongo_client import MongoClient
 import cipher
-import hardwareSet
+import HardwareSet
 
 uri = "mongodb+srv://resulovezov:zTXelEryJEzsz6N8@cluster0.ieiqobl.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
 
@@ -17,6 +17,19 @@ PROJECT_ADD_SUCCESS = 1
 PROJECT_ADD_FAILURE = 0
 
 
+# CALL THIS ONLY ONCE. THIS HAS BEEN CALLED ALREADY SO DO NOT CALL IT AGAIN
+def DATABASE_CREATE_HARDWARE():
+    client = MongoClient(uri)
+    db = client["HardwareSet"]
+    collection = db["Universe"]
+    laser = HardwareSet.HardwareSet(name="Laser Cutter", capacity=1000, availability=1000, checked={})
+    print3D = HardwareSet.HardwareSet(name="3D Printer", capacity=1000, availability=1000, checked={})
+    gpu = HardwareSet.HardwareSet(name="GPU", capacity=1000, availability=1000, checked={})
+    collection.insert_one(laser.to_dict())
+    collection.insert_one(print3D.to_dict())
+    collection.insert_one(gpu.to_dict())
+    client.close()
+
 # This function adds a project, call only after loging in or signing in
 # This function adds the projectID to the user's projects list
 # Then it creates the project with the given values
@@ -25,7 +38,7 @@ PROJECT_ADD_FAILURE = 0
 # Output  if successful return PROJECT_ADD_SUCCESS
 # if error then DB_ERROR
 # if user already exists PROJECT_ADD_FAILURE
-def database_add_project(userid, name, id, description, hardwareSets):
+def database_add_project(userid, name, id, description):
     try:
         client = MongoClient(uri)
         db = client["Projects"]
@@ -45,7 +58,7 @@ def database_add_project(userid, name, id, description, hardwareSets):
                     "Name": name,
                     "ID": id,
                     "Description": description,
-                    "HardwareSets": hardwareSets
+                    "Users": [userid]
                 }
             userProjectList.append(id)
             update_statement = {"$set": {"projects": userProjectList}}
@@ -54,6 +67,51 @@ def database_add_project(userid, name, id, description, hardwareSets):
                 collection.insert_one(set)
                 client.close()
                 return PROJECT_ADD_SUCCESS
+            else:
+                client.close()
+                return PROJECT_ADD_FAILURE
+        else:
+            client.close()
+            return PROJECT_ADD_FAILURE
+    except Exception as e:
+        client.close()
+        print(e)
+        return DB_ERROR
+
+# Function joins a user to a project, ie updates their list to include the id
+# Input: userid (username), projectid (projectid)
+# Output: Same stuff
+def database_join_project(userid, projectid):
+    try:
+        client = MongoClient(uri)
+        db = client["Projects"]
+        collection = db["Universe"]
+        userDB = client["Users"]
+        userCollection = userDB["Universe"]
+        filter = {"userid": userid}
+        filterProject = {"ID": projectid}
+        userProjectList = userCollection.find_one({"userid": userid}, {"projects": 1, "_id": 0})
+        if userProjectList is None:
+            client.close()
+            return PROJECT_ADD_FAILURE
+        else:
+            userProjectList = userProjectList.get("projects")
+        projectUserList = collection.find_one({"ID": projectid}, {"Users": 1, "_id": 0})
+        if projectUserList is not None:
+            if projectid not in userProjectList:
+                userProjectList.append(projectid)
+                update_statement = {"$set": {"projects": userProjectList}}
+                result = userCollection.update_one(filter, update_statement)
+                if result.modified_count > 0:
+                    projectUserList = projectUserList.get("Users")
+                    projectUserList.append(userid)
+                    update_statement = {"$set": {"Users": projectUserList}}
+                    collection.update_one(filterProject, update_statement)
+                    client.close()
+                    return PROJECT_ADD_SUCCESS
+                else:
+                    client.close()
+                    return PROJECT_ADD_FAILURE
             else:
                 client.close()
                 return PROJECT_ADD_FAILURE
@@ -157,3 +215,36 @@ def database_login(userid, password):
         print(e)
         return DB_ERROR
 
+# Only call if user is signed in
+def database_check_out(hardwareName, userID, qty):
+    client = MongoClient(uri)
+    db = client["HardwareSet"]
+    collection = db["Universe"]
+    document = collection.find_one({"hardware_name": hardwareName})
+    if document is not None:
+        filter = {"hardware_name": hardwareName}
+        hardwareObj = HardwareSet.HardwareSet.from_dict(document)
+        hardwareObj.check_out(qty, userID)
+        collection.replace_one(filter, hardwareObj.to_dict())
+
+# Only call if user is signed in
+def database_check_in(hardwareName, userID, qty):
+    client = MongoClient(uri)
+    db = client["HardwareSet"]
+    collection = db["Universe"]
+    document = collection.find_one({"hardware_name": hardwareName})
+    if document is not None:
+        filter = {"hardware_name": hardwareName}
+        hardwareObj = HardwareSet.HardwareSet.from_dict(document)
+        if(hardwareObj.check_in(qty, userID) == 0):
+            collection.replace_one(filter, hardwareObj.to_dict())
+
+def database_get_hardwareSets():
+    client = MongoClient(uri)
+    db = client["HardwareSet"]
+    collection = db["Universe"]
+    documents = collection.find({}, {"_id": 0})
+    hardwareList = []
+    for doc in documents:
+        hardwareList.append(doc)
+    return hardwareList

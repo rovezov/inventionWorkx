@@ -1,0 +1,182 @@
+/* General Layout */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f7fa;
+  color: #333;
+  margin: 0;
+  padding: 0;
+  line-height: 1.6;
+}
+
+/* Main Container */
+.section {
+  margin: 2rem auto;
+  padding: 1.5rem;
+  width: 80%;
+  max-width: 800px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s;
+  border-top: 4px solid #4caf50; /* Lime green top border for sections */
+}
+
+.section:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Headings */
+h1, h2, h3, h4 {
+  color: #333;
+  text-align: center;
+  margin-top: 0;
+}
+
+h1 {
+  color: #4caf50; /* Lime green for main title */
+}
+
+h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: #1e88e5; /* Bright blue for section headings */
+}
+
+/* Forms and Inputs */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+label {
+  font-weight: bold;
+  color: #666;
+}
+
+input[type="text"], input[type="number"], textarea, select {
+  padding: 0.75rem;
+  font-size: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  transition: border-color 0.3s;
+}
+
+input[type="text"]:focus, input[type="number"]:focus, textarea:focus, select:focus {
+  border-color: #4caf50; /* Lime green focus */
+  outline: none;
+}
+
+/* Buttons */
+button {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #ffffff;
+  background-color: #1e88e5; /* Bright blue button */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #1565c0; /* Darker blue on hover */
+}
+
+button[type="submit"] {
+  align-self: center;
+  width: 50%;
+  max-width: 200px;
+}
+
+/* Project and Hardware Lists */
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  padding: 1rem;
+  margin-bottom: 0.5rem;
+  background-color: #e3f2fd; /* Light blue background */
+  border-radius: 5px;
+}
+
+.hardware-item, .project-item {
+  border: 1px solid #d0e6fa;
+  background-color: #e3f2fd;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.hardware-item:hover, .project-item:hover {
+  background-color: #bbdefb; /* Slightly darker blue on hover */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Success and Error Messages */
+p {
+  margin: 0.5rem 0;
+}
+
+p[style*="color: red"] {
+  color: #ff6b6b;
+  background-color: #ffe8e8;
+  padding: 0.5rem;
+  border-radius: 5px;
+}
+
+p[style*="color: green"] {
+  color: #4caf50; /* Lime green */
+  background-color: #e8f5e9;
+  padding: 0.5rem;
+  border-radius: 5px;
+}
+
+/* Navbar */
+nav {
+  display: flex;
+  justify-content: center;
+  padding: 1rem;
+  background-color: #1e88e5; /* Bright blue */
+  color: #ffffff;
+}
+
+nav a {
+  color: #ffffff;
+  margin: 0 1rem;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s;
+}
+
+nav a:hover {
+  color: #4caf50; /* Lime green on hover */
+}
+
+/* Global Hardware Resource Section */
+.global-resources {
+  background-color: #f1f8e9; /* Light lime-green background */
+  border-left: 4px solid #4caf50;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+.global-resources h3 {
+  color: #388e3c; /* Darker green for emphasis */
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 600px) {
+  .section {
+    width: 90%;
+  }
+  
+  button[type="submit"] {
+    width: 100%;
+  }
+}

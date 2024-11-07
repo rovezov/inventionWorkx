@@ -1,0 +1,22 @@
+# backend/utils/run_backend.py
+
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+
+from flask import Flask
+from flask_cors import CORS
+from api.auth_api import auth_blueprint
+from api.project_api import project_blueprint
+from api.hardware_api import hardware_blueprint
+
+app = Flask(__name__)
+CORS(app)
+
+# Register blueprints for each API
+app.register_blueprint(auth_blueprint, url_prefix="/api/auth")
+app.register_blueprint(project_blueprint, url_prefix="/api/project")
+app.register_blueprint(hardware_blueprint, url_prefix="/api/hardware")
+
+if __name__ == "__main__":
+    app.run(debug=True)

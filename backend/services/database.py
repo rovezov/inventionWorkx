@@ -270,5 +270,3 @@ def database_check_in(hardware_name, user_id, qty, project_id):
     except Exception as e:
         logging.error(f"Check-in error: {e}")
         return False
-
-database_leave_project("asdf2", "asdf")

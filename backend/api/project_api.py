@@ -84,7 +84,7 @@ def join_project():
     )
     return jsonify({"message": "Successfully joined the project."}), 200
 
-# Route to join an existing project by ID
+# Route to leave an existing project by ID
 @project_blueprint.route('/leave', methods=['POST'])
 @token_required
 def leave_project():

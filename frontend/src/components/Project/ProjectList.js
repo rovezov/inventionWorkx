@@ -5,6 +5,7 @@ import { listProjects } from '../../api/projectService';
 import { listHardware } from '../../api/hardwareService';
 import HardwareCheckoutForm from '../Hardware/HardwareCheckoutForm';
 import HardwareCheckinForm from '../Hardware/HardwareCheckinForm';
+import { leaveProject } from '../../api/projectService';
 
 function ProjectList({ refresh }) {
   const [projects, setProjects] = useState([]);
@@ -22,6 +23,18 @@ function ProjectList({ refresh }) {
       setGlobalHardware(hardwareData);
     } catch (err) {
       setError(err.message || "Failed to load data");
+    }
+  };
+
+  // Handle leaving a project
+  const handleLeaveProject = async (projectId) => {
+    if (window.confirm("Are you sure you want to leave this project?")) {
+      try {
+        await leaveProject(projectId); // Call API to leave the project
+        refreshAllData(); // Refresh data after leaving project
+      } catch (err) {
+        setError(err.message || "Failed to leave project");
+      }
     }
   };
 
@@ -51,7 +64,8 @@ function ProjectList({ refresh }) {
         {projects.map((project) => (
           <li key={project.id}>
             <h3>{project.name}</h3>
-            <p>{project.description}</p>
+            <p><strong>Project ID: </strong>{project.id}</p>
+            <p><strong>Description: </strong>{project.description}</p>
             
             {/* Display only if hardware is checked out */}
             {project.hardware && project.hardware.length > 0 ? (
@@ -80,6 +94,20 @@ function ProjectList({ refresh }) {
               projectHardware={project.hardware} 
               onActionComplete={refreshAllData} 
             />
+            <button 
+              onClick={() => handleLeaveProject(project.id)}
+              style={{
+                marginTop: '10px',
+                padding: '8px 12px',
+                backgroundColor: 'red',
+                color: 'white',
+                border: 'none',
+                borderRadius: '5px',
+                cursor: 'pointer'
+              }}
+            >
+              Leave Project
+            </button>
           </li>
         ))}
       </ul>

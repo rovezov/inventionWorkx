@@ -83,3 +83,35 @@ def join_project():
         {"$addToSet": {"projects": project_id}}
     )
     return jsonify({"message": "Successfully joined the project."}), 200
+
+# Route to join an existing project by ID
+@project_blueprint.route('/leave', methods=['POST'])
+@token_required
+def leave_project():
+    data = request.json
+    userid = data.get("userid")
+    project_id = data.get("project_id")
+
+    # Retrieve database collections
+    project_collection = client["Projects"]["Universe"]
+    user_collection = client["Users"]["Universe"]
+
+    # Check if the project exists
+    project = project_collection.find_one({"id": project_id})
+    if not project:
+        return jsonify({"message": "Project not found. Please check the Project ID and try again."}), 404
+
+    # Check if user is not part of the project
+    if userid not in project.get("users", []):
+        return jsonify({"message": "You are not a member of this project."}), 409
+
+    # Add the user to the project's user list and the project to the user's project list
+    project_collection.update_one(
+        {"id": project_id},
+        {"$pull": {"users": userid}}
+    )
+    user_collection.update_one(
+        {"userid": userid},
+        {"$pull": {"projects": project_id}}
+    )
+    return jsonify({"message": "Successfully left the project."}), 200

@@ -45,3 +45,17 @@ export const joinProject = async (project_id) => {
   }
 };
 
+export const leaveProject = async (project_id) => {
+  try {
+    const token = localStorage.getItem('token');
+    const userid = localStorage.getItem('userid');
+    const response = await axios.post(
+      `${BASE_URL}/leave`,
+      { userid, project_id },
+      { headers: { Authorization: `Bearer ${token}` } }
+    );
+    return response.data;
+  } catch (error) {
+    throw error.response ? error.response.data : new Error("Leave project failed");
+  }
+};

@@ -1,7 +1,7 @@
 // src/components/Auth/SignupForm.js
 
 import React, { useState } from 'react';
-import { signupUser } from '../../api/authService';
+import { loginUser, signupUser } from '../../api/authService';
 import { useNavigate } from 'react-router-dom';
 
 function SignupForm() {
@@ -14,7 +14,10 @@ function SignupForm() {
     e.preventDefault();
     try {
       await signupUser(userid, password);
-      navigate('/login');
+      const data = await loginUser(userid, password);
+      localStorage.setItem('token', data.token);
+      localStorage.setItem('userid', userid);  // Save the userid for later use
+      navigate('/');
     } catch (err) {
       setError(err.message || 'Signup failed');
     }

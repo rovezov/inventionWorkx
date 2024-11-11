@@ -23,7 +23,7 @@ function Home() {
       {/* Section for joining an existing project by ID */}
       <div className="section join-project">
         <h2>Join a Project</h2>
-        <JoinProjectForm />
+        <JoinProjectForm onProjectJoin={refreshProjects} />
       </div>
 
       {/* Section for listing the user's projects */}

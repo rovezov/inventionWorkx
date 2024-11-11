@@ -110,6 +110,46 @@ def database_add_project(userid, name, id, description):
         logger.error(f"Add project error: {e}")
         return {"message": "Internal server error."}, 500
 
+def database_leave_project(userid, id):
+    """Adds a new project for the user, ensuring that project IDs are unique globally."""
+    try:
+        db = client["Projects"]
+        collection = db["Universe"]
+        user_collection = client["Users"]["Universe"]
+
+        # Check if a project with the same ID already exists globally
+        existing_project = collection.find_one({"id": id})
+        if existing_project:
+            logger.warning(f"[Duplication Warning] Project with ID '{id}' already exists globally.")
+            return {"message": "Project ID already exists globally. Choose a different ID."}, 409
+
+        # Look up the user
+        user = user_collection.find_one({"userid": userid})
+        if user:
+            # Check if the user is part of the project
+            if id not in user.get("projects", []):
+                logger.warning(f"[Not Part of Project] User ID '{userid}' is not part of project '{id}'.")
+                return {"message": "User is not part of this project."}, 400
+            # Remove the project ID from the user's project list
+            user_collection.update_one(
+                {"userid": userid},
+                {"$pull": {"projects": id}}
+            )
+
+            # Remove the user from the project's user list
+            collection.update_one(
+                {"id": id},
+                {"$pull": {"users": userid}}
+            )
+
+            return {"message": "User successfully left the project."}, 200
+        else:
+            logger.error(f"[User Not Found] User ID '{userid}' does not exist.")
+            return {"message": "User not found."}, 404
+    except Exception as e:
+        logger.error(f"Leave project error: {e}")
+        return {"message": "Internal server error."}, 500
+
 def database_get_user_projects(userid):
     """Retrieves a list of projects associated with the user, including checked-out hardware."""
     try:

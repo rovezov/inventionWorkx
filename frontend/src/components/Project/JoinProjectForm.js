@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { joinProject } from '../../api/projectService';
 
-function JoinProjectForm() {
+function JoinProjectForm({ onProjectJoin }) {
   const [projectId, setProjectId] = useState('');
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
@@ -15,6 +15,7 @@ function JoinProjectForm() {
       setSuccess(response.message);  // Show success message
       setError('');  // Clear previous errors
       setProjectId('');  // Reset project ID input
+      if (onProjectJoin) onProjectJoin();
     } catch (err) {
       setError(err.message || 'Failed to join project');  // Show detailed error message from server
       setSuccess('');  // Clear previous success messages

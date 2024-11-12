@@ -3,12 +3,8 @@
 import React from 'react';
 import LoginForm from '../components/Auth/LoginForm';
 
-function Login() {
-  return (
-    <div>
-      <LoginForm />
-    </div>
-  );
+function Login({ setIsLoggedIn }) {
+  return <LoginForm setIsLoggedIn={setIsLoggedIn} />;
 }
 
 export default Login;

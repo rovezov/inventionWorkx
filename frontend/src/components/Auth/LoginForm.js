@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { loginUser } from '../../api/authService';
 import { useNavigate } from 'react-router-dom';
 
-function LoginForm() {
+function LoginForm({ setIsLoggedIn }) {
   const [userid, setUserid] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -15,7 +15,8 @@ function LoginForm() {
     try {
       const data = await loginUser(userid, password);
       localStorage.setItem('token', data.token);
-      localStorage.setItem('userid', userid);  // Save the userid for later use
+      localStorage.setItem('userid', userid);
+      setIsLoggedIn(true); // Set the login state to true on successful login
       navigate('/');
     } catch (err) {
       setError(err.message || 'Login failed');

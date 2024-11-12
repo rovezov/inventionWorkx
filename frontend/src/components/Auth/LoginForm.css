@@ -1,0 +1,51 @@
+/* src/components/Auth/LoginForm.css */
+
+/* Form container */
+form {
+    display: flex;
+    flex-direction: column;  /* Stack the elements vertically */
+    justify-content: center;
+    align-items: center;
+    max-width: 400px;  /* Max width for the form */
+    width: 100%;  /* Allow form to scale based on the screen size */
+    margin: 0 auto;  /* Center the form */
+    padding: 20px;
+    background-color: #f7f7f7;  /* Optional: add background color for better visual */
+    border-radius: 8px;  /* Optional: round the corners */
+  }
+  
+  /* Style for the input fields */
+  input {
+    width: 100%;  /* Make inputs take up 100% of the form width */
+    max-width: 350px;  /* Limit the maximum width */
+    padding: 10px;  /* Padding inside the input field */
+    margin: 10px 0;  /* Space between inputs */
+    border: 1px solid #ccc;  /* Border color */
+    border-radius: 4px;  /* Rounded corners for the inputs */
+    font-size: 16px;  /* Font size for the input text */
+  }
+  
+  /* Style for the submit button */
+  button {
+    width: 100%;  /* Make button the same width as the input */
+    max-width: 350px;  /* Match the button width to the input fields */
+    padding: 10px;  /* Padding for the button */
+    margin: 10px 0;  /* Space above and below the button */
+    border: none;
+    background-color: #1e88e5;  /* Button color */
+    color: white;  /* Button text color */
+    font-size: 16px;  /* Font size for button text */
+    cursor: pointer;  /* Change cursor on hover */
+    border-radius: 4px;  /* Rounded corners for the button */
+  }
+  
+  button:hover {
+    background-color: #4caf50;  /* Change button color on hover */
+  }
+  
+  /* Error message styling */
+  p {
+    color: red;
+    font-size: 14px;
+  }
+  

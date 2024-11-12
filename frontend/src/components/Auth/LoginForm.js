@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { loginUser } from '../../api/authService';
 import { useNavigate } from 'react-router-dom';
+import './LoginForm.css';
 
 function LoginForm({ setIsLoggedIn }) {
   const [userid, setUserid] = useState('');

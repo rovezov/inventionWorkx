@@ -157,6 +157,23 @@ nav a:hover {
   color: #4caf50; /* Lime green on hover */
 }
 
+/* Styling for the Logout button */
+nav button {
+  margin-left: 1rem;
+  padding: 0 1rem;
+  /* background-color: #1e88e5; */
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+  font-weight: bold; 
+  transition: color 0.3s;;
+}
+
+nav button:hover {
+  color: #4caf50; 
+  background-color: #1e88e5;
+}
+
 /* Global Hardware Resource Section */
 .global-resources {
   background-color: #f1f8e9; /* Light lime-green background */

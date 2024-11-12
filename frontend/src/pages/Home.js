@@ -31,7 +31,7 @@ function Home({ isLoggedIn }) {
           </div>
         </>
       ) : (
-        <p>Please log in to view your projects.</p>
+        <p className="login-message">Please login to view your projects.</p>
       )}
     </div>
   );

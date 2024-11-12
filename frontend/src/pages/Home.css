@@ -197,3 +197,16 @@ nav button:hover {
     width: 100%;
   }
 }
+
+/* Home page not logged in */
+.login-message {
+  text-align: center; /* Centers the text horizontally */
+  font-size: 2rem; /* Makes the text bigger (adjust as needed) */
+  color: #333; /* Optional: Change the text color */
+  margin-top: 2rem; /* Adds some space from the top */
+}
+
+.login-message h2 {
+  font-size: 3rem; /* Makes the heading text even bigger */
+  font-weight: bold; /* Optional: Makes it bold */
+}

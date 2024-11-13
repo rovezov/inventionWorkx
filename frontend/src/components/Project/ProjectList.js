@@ -66,6 +66,7 @@ function ProjectList({ refresh }) {
             <h3>{project.name}</h3>
             <p><strong>Project ID: </strong>{project.id}</p>
             <p><strong>Description: </strong>{project.description}</p>
+            <p><strong>Members: </strong>{project.users.join(', ')}</p>
             
             {/* Display only if hardware is checked out */}
             {project.hardware && project.hardware.length > 0 ? (

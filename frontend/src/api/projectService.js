@@ -2,7 +2,7 @@
 
 import axios from 'axios';
 
-const BASE_URL = 'http://127.0.0.1:5000/api/project';
+const BASE_URL = 'http://' + process.env.PRODUCTION_URL + ':5000/api/project';
 
 export const createProject = async (userid, name, id, description) => {
   try {

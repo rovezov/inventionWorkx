@@ -1,5 +1,3 @@
-# backend/utils/run_backend.py
-
 import sys
 import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
@@ -19,4 +17,5 @@ app.register_blueprint(project_blueprint, url_prefix="/api/project")
 app.register_blueprint(hardware_blueprint, url_prefix="/api/hardware")
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port=5000, debug=True)  # Update host and port
+

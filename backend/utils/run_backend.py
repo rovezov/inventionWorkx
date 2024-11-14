@@ -10,7 +10,7 @@ from api.hardware_api import hardware_blueprint
 
 
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": "*"}}) 
+CORS(app, origins="http://3.144.236.59")
 
 # Register blueprints for each API
 app.register_blueprint(auth_blueprint, url_prefix="/api/auth")

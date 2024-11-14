@@ -157,6 +157,23 @@ nav a:hover {
   color: #4caf50; /* Lime green on hover */
 }
 
+/* Styling for the Logout button */
+nav button {
+  margin-left: 1rem;
+  padding: 0 1rem;
+  /* background-color: #1e88e5; */
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+  font-weight: bold; 
+  transition: color 0.3s;;
+}
+
+nav button:hover {
+  color: #4caf50; 
+  background-color: #1e88e5;
+}
+
 /* Global Hardware Resource Section */
 .global-resources {
   background-color: #f1f8e9; /* Light lime-green background */
@@ -179,4 +196,17 @@ nav a:hover {
   button[type="submit"] {
     width: 100%;
   }
+}
+
+/* Home page not logged in */
+.login-message {
+  text-align: center; /* Centers the text horizontally */
+  font-size: 2rem; /* Makes the text bigger (adjust as needed) */
+  color: #333; /* Optional: Change the text color */
+  margin-top: 2rem; /* Adds some space from the top */
+}
+
+.login-message h2 {
+  font-size: 3rem; /* Makes the heading text even bigger */
+  font-weight: bold; /* Optional: Makes it bold */
 }

@@ -18,5 +18,5 @@ app.register_blueprint(project_blueprint, url_prefix="/api/project")
 app.register_blueprint(hardware_blueprint, url_prefix="/api/hardware")
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000, debug=True)  # Update host and port
+    app.run(host="3.144.236.59", port=5000, debug=True)  # Update host and port
 

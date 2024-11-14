@@ -5,8 +5,11 @@ import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 import requests
+from config.settings import load_config
 
-BASE_URL = "http://127.0.0.1:5000/api"
+config = load_config()
+PRODUCTION_URL = config["PRODUCTION_URL"]
+BASE_URL = "http://" + PRODUCTION_URL +":5000/api"
 AUTH_HEADERS = {}
 
 # Define various test functions

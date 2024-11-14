@@ -11,7 +11,7 @@ config = load_config()
 SECRET_KEY = config["SECRET_KEY"]
 
 # Initialize MongoDB client
-client = MongoClient(config["MONGODB_URI"])
+client = MongoClient("mongodb+srv://resulovezov:zTXelEryJEzsz6N8@cluster0.ieiqobl.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
 
 def token_required(f):
     @wraps(f)

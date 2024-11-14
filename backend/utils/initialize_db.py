@@ -12,7 +12,7 @@ from services.cipher import encrypt  # Assuming encrypt function is in services
 
 # Load MongoDB configuration
 config = load_config()
-client = MongoClient(config["MONGODB_URI"])
+client = MongoClient("mongodb+srv://resulovezov:zTXelEryJEzsz6N8@cluster0.ieiqobl.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
 
 def initialize_users():
     """

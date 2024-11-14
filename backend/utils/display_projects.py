@@ -9,7 +9,7 @@ from config.settings import load_config
 
 # Load MongoDB URI from settings
 config = load_config()
-client = MongoClient(config["MONGODB_URI"])
+client = MongoClient("mongodb+srv://resulovezov:zTXelEryJEzsz6N8@cluster0.ieiqobl.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
 
 def display_projects():
     """Displays all projects in the Projects collection with detailed information."""

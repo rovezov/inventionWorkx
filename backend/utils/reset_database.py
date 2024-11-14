@@ -9,7 +9,7 @@ from config.settings import load_config
 
 # Load MongoDB URI from the settings
 config = load_config()
-client = MongoClient(config["MONGODB_URI"])
+client = MongoClient("mongodb+srv://resulovezov:zTXelEryJEzsz6N8@cluster0.ieiqobl.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
 
 def reset_collection(db, collection_name, initialize_data=None):
     """

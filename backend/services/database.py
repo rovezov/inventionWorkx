@@ -9,7 +9,7 @@ from services.cipher import encrypt
 
 # Load MongoDB URI
 config = load_config()
-client = MongoClient(config["MONGODB_URI"])
+client = MongoClient("mongodb+srv://resulovezov:zTXelEryJEzsz6N8@cluster0.ieiqobl.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
 
 # Configure logging
 logging.basicConfig(level=logging.WARNING) # Set up logging with WARNING level

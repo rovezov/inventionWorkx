@@ -3,7 +3,7 @@
 import axios from 'axios';
 
 
-const BASE_URL = 'http://127.0.0.1:5000/api/auth';
+const BASE_URL = 'http://3.144.236.59:5000/api/auth';
 
 export const signupUser = async (userid, password) => {
   try {
